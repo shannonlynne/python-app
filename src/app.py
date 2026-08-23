@@ -21,6 +21,6 @@ def health():
 
 if __name__ == '__main__':
 
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0") #to run on all interfaces, so that it can be accessed from outside the container
 
 # app.run()
