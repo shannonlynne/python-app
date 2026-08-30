@@ -4,7 +4,7 @@ image:
   repository: slmorrell/python-app
   pullPolicy: IfNotPresent
 
-  tag: "v1"
+  tag: "f4f0f0"
 
 imagePullSecrets: []
 nameOverride: ""
