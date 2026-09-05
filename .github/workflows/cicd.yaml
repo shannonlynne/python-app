@@ -43,14 +43,16 @@ jobs:
     needs: ci
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Modify values file
         shell: bash
+        env:
+          COMMIT_ID: ${{ needs.ci.outputs.commit_id }}
         run: |
-          echo ${{needs.ci.outputs.commit_id}}
-          pip install yq
-          yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/python-app/values.yaml
+          echo "$COMMIT_ID"
+          sed -i -E "s|^([[:space:]]*tag:).*|\1 \"$COMMIT_ID\"|" charts/python-app/values.yaml
+          grep -A4 "^image:" charts/python-app/values.yaml
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
